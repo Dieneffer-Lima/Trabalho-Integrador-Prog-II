@@ -1,0 +1,165 @@
+:root {
+  --cor-preto: #0a100d;
+  --cor-sidebar: #b9baa3;
+  --cor-fundo-principal: #d6d5c9;
+  --cor-primaria: #a22c29;
+  --cor-destaque: #902923;
+  --cor-texto-claro: #fff;
+  --cor-texto-escuro: #0a100d;
+  --cor-linha-tabela: #f3f3f0;
+}
+
+/* Fundo geral da página */
+.cadastro-servicos-page {
+  min-height: 100vh;
+  background-color: var(--cor-fundo-principal);
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Card principal (caixa central) */
+.main-content-servicos {
+  width: 100%;
+  max-width: 1100px;
+  background-color: var(--cor-sidebar);
+  padding: 25px 35px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Título */
+.servicos-header {
+  margin-bottom: 25px;
+}
+
+.servicos-title {
+  color: var(--cor-texto-escuro);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+/* Formulário */
+.servicos-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Linha com Nome + Valor */
+.form-row {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.servicos-label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: var(--cor-texto-escuro);
+}
+
+/* Inputs mais claros, estilo cadastro de materiais */
+.servicos-input {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #777;
+  background-color: #f5f5f5;
+  color: var(--cor-texto-escuro);
+  min-width: 260px;
+}
+
+.servicos-input:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 2px rgba(162,44,41,0.2);
+}
+
+/* Botões */
+.salvar-container {
+  margin-top: 5px;
+}
+
+.salvar-button,
+.voltar-button {
+  padding: 10px 22px;
+  background-color: var(--cor-primaria);
+  color: var(--cor-texto-claro);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.salvar-button:hover,
+.voltar-button:hover {
+  background-color: var(--cor-destaque);
+}
+
+/* Mensagem (sucesso/erro) */
+.mensagem {
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.mensagem.sucesso {
+  background-color: #d9f7dd;
+  color: #1a6b2b;
+}
+
+.mensagem.erro {
+  background-color: #fbd5d5;
+  color: #8b1111;
+}
+
+/* Tabela */
+.tabela-container {
+  margin-top: 20px;
+  background-color: #e5e4d9;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Tabela semelhante ao Figma */
+.servicos-tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.servicos-tabela thead tr {
+  background-color: var(--cor-primaria);
+}
+
+.servicos-tabela th {
+  color: var(--cor-texto-claro);
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+/* Linhas da tabela bem claras, com zebra leve */
+.servicos-tabela td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  color: var(--cor-texto-escuro);
+  font-size: 0.95rem;
+  background-color: var(--cor-linha-tabela);
+}
+
+.servicos-tabela tbody tr:nth-child(even) td {
+  background-color: #ecebe4;
+}
+
+.servicos-tabela tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Botão Voltar alinhado embaixo da tabela */
+.voltar-button {
+  margin-top: 15px;
+}

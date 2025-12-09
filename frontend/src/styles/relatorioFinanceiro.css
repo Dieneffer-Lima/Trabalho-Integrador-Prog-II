@@ -1,0 +1,90 @@
+/* frontend/src/styles/relatorioFinanceiro.css */
+
+.relatorio-container {
+    padding: 30px;
+    margin: 40px auto;
+    max-width: 800px;
+    background-color: #ffffff; /* Fundo branco */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    font-family: Arial, sans-serif;
+}
+
+.relatorio-titulo {
+    font-size: 28px;
+    color: #333; /* Cor escura para o título */
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #0056b3; /* Linha azul para destaque */
+    padding-bottom: 10px;
+}
+
+.relatorio-descricao {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.botoes-relatorio {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.botao-acao {
+    flex-grow: 1;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+/* Estilo específico para o relatório Líquido (Azul primário) */
+.botao-liquido {
+    background-color: #007bff;
+}
+
+.botao-liquido:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+/* Estilo específico para o relatório Bruto (Amarelo/Laranja) */
+.botao-bruto {
+    background-color: #ffc107;
+    color: #333; /* Texto escuro para contraste */
+}
+
+.botao-bruto:hover:not(:disabled) {
+    background-color: #e0a800;
+}
+
+.botao-acao:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.status-mensagem {
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.mensagem-loading {
+    background-color: #e9ecef;
+    color: #007bff;
+}
+
+.mensagem-erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

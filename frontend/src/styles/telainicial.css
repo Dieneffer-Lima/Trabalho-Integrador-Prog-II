@@ -1,0 +1,158 @@
+/* frontend/src/styles/telaInicial.css */
+
+:root {
+  /* Paleta */
+  --cor-preto: #0a100d;
+  --cor-sidebar: #b9baa3;
+  --cor-fundo-principal: #d6d5c9;
+  --cor-primaria: #a22c29;
+  --cor-destaque: #902923;
+
+  --cor-texto-escuro: var(--cor-preto);
+  --cor-texto-claro: #ffffff;
+}
+
+/* -------- LAYOUT GERAL -------- */
+
+.tela-inicial-page {
+  min-height: 100vh;
+  background-color: var(--cor-fundo-principal);
+  display: flex;
+  flex-direction: column;
+}
+
+/* -------- BARRA SUPERIOR PRETA (COM LOGO) -------- */
+
+.header-top-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--cor-preto);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.header-logo {
+  height: 70px;
+  width: auto;
+}
+
+/* -------- ÁREA ABAIXO DO HEADER -------- */
+
+.main-layout {
+  display: flex;
+  flex-grow: 1;
+}
+
+/* -------- SIDEBAR ESQUERDA -------- */
+
+.sidebar-ajustada {
+  width: 260px;
+  background-color: var(--cor-sidebar);
+  padding: 30px 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.usuario-tipo-label {
+  color: var(--cor-texto-escuro);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--cor-primaria);
+  color: var(--cor-texto-claro);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  /* sem animação */
+  transition: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.logout-button:hover {
+  background-color: var(--cor-destaque) !important;
+}
+
+/* -------- CONTEÚDO PRINCIPAL -------- */
+
+.main-content-ajustada {
+  flex-grow: 1;
+  padding: 40px 60px;
+  background-color: var(--cor-fundo-principal);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-title {
+  color: var(--cor-texto-escuro);
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--cor-primaria);
+  font-size: 2.2rem;
+}
+
+/* -------- GRID DOS BOTÕES (CARDS) -------- */
+
+.funcionalidades-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+/* Botão/card de funcionalidade */
+.funcionalidade-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 180px;
+  height: 180px;
+
+  background-color: var(--cor-sidebar);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  /* é um <button>, então tiramos a cara de botão padrão */
+  border: none;
+  outline: none;
+
+  /* sem animações exageradas */
+  transition: none !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transform: none !important;
+
+  padding: 10px;
+  text-align: center;
+}
+
+.funcionalidade-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* texto centralizado dentro do card */
+.funcionalidade-nome {
+  color: var(--cor-texto-escuro);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* não vamos usar ícones nem seção de relatórios agora */
+.funcionalidade-icone-placeholder,
+.separator,
+.relatorios-secao,
+.placeholder-relatorios {
+  display: none;
+}

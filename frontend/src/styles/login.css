@@ -1,0 +1,136 @@
+/* src/styles/login.css */
+
+/* fundo geral da aplicação */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #a22c29; /* vermelho da paleta */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* garante que o root ocupe a altura toda */
+#root {
+  min-height: 100vh;
+}
+
+/* container da página de login/cadastro */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* card preto do login/cadastro */
+.login-card {
+  background-color: #0a100d; /* quase preto */
+  border-radius: 32px;
+  padding: 32px 40px;
+  width: 380px;
+  color: #f5f5f5;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* logo centralizada em cima */
+.login-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.login-logo {
+  max-width: 180px;
+  height: auto;
+}
+
+/* título (Login / Cadastro) */
+.login-title {
+  text-align: center;
+  margin: 8px 0 24px;
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+/* formulário */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+/* campos de texto / select */
+.login-input {
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #d6d5c9; /* tom claro da paleta */
+  color: #0a100d;
+  font-size: 0.95rem;
+}
+
+.login-input:focus {
+  outline: 2px solid #b9baa3;
+}
+
+/* mensagens de erro/sucesso */
+.login-message {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.login-message.error {
+  color: #ffb3b3;
+}
+
+.login-message.success {
+  color: #b0f2b4;
+}
+
+/* botão principal */
+.login-button {
+  margin-top: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  background-color: #902923;
+  color: #f5f5f5;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.login-button:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* botão secundário ("Criar Cadastro", "Voltar para o Login") */
+.login-secondary-button {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #b9baa3;
+  background-color: transparent;
+  color: #f5f5f5;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.login-secondary-button:hover {
+  background-color: rgba(214, 213, 201, 0.08);
+}

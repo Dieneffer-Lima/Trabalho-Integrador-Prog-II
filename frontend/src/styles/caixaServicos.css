@@ -1,0 +1,326 @@
+/* frontend/src/styles/caixaServicos.css */
+
+:root {
+ --cor-preto: #0a100d;
+ --cor-sidebar: #b9baa3;
+ --cor-fundo-principal: #d6d5c9;
+ --cor-primaria: #a22c29;
+ --cor-destaque: #902923;
+ --cor-texto-claro: #ffffff;
+ --cor-texto-escuro: #0a100d;
+}
+
+/* fundo geral da página */
+.caixa-page {
+  min-height: 100vh;
+  background-color: var(--cor-fundo-principal);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px 0;
+}
+
+/* “cartão” central como no Figma */
+.caixa-container {
+ width: 80%;
+ max-width: 1100px;
+ background-color: #d1d1c4;
+ border-radius: 12px;
+ padding: 25px 35px 35px;
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* header com título e data */
+.caixa-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 20px;
+}
+
+.caixa-title {
+ font-size: 1.8rem;
+ font-weight: 700;
+ color: var(--cor-preto);
+}
+
+.caixa-data label {
+ font-weight: 500;
+ color: var(--cor-texto-escuro);
+}
+
+.caixa-data input[type="date"] {
+ margin-left: 8px;
+ padding: 4px 8px;
+ border-radius: 4px;
+ border: 1px solid #bbb;
+ background-color: #f7f7f7;
+ color: var(--cor-preto); 
+}
+
+/* mensagens de erro / sucesso */
+.caixa-mensagem {
+ padding: 10px 16px;
+ margin-bottom: 16px;
+ font-weight: 500;
+ text-align: center;
+}
+
+.caixa-mensagem.sucesso {
+ background-color: #d4f5d4;
+ color: #225522;
+}
+
+.caixa-mensagem.erro {
+ background-color: #ffd6d6;
+ color: #8b1515;
+}
+
+/* layout dois blocos lado a lado */
+.caixa-grid {
+ display: grid;
+ grid-template-columns: 2fr 1fr;
+ gap: 25px;
+}
+
+/* CARD de serviços */
+.caixa-servicos-card {
+ background-color: #deded8;
+ border-radius: 10px;
+ overflow: hidden;
+ border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.caixa-servicos-header {
+ display: grid;
+ grid-template-columns: 2fr 1fr;
+ background-color: var(--cor-primaria);
+ /* MODIFICADO: Antes estava var(--cor-texto-escuro) */
+ color: var(--cor-texto-claro); 
+ font-weight: 600;
+ padding: 10px 16px;
+}
+
+/* lista de serviços */
+.caixa-servicos-lista {
+ padding: 12px 16px 16px;
+}
+
+.caixa-sem-registro {
+ margin: 12px 4px;
+ color: #555;
+}
+
+/* cada linha de serviço */
+.caixa-servico-linha {
+ display: grid;
+ grid-template-columns: 2fr 1fr;
+ gap: 10px;
+ padding: 8px 0;
+ border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.caixa-servico-esquerda {
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+}
+
+.caixa-servico-checkbox {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ font-weight: 600;
+ color: var(--cor-preto);
+}
+
+.caixa-servico-checkbox input[type="checkbox"] {
+ width: 18px;
+ height: 18px;
+}
+
+/* bloco de materiais utilizados */
+.caixa-materiais-bloco {
+ background-color: rgba(255, 255, 255, 0.9);
+ border-radius: 6px;
+ padding: 8px 10px 10px;
+ border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.caixa-materiais-titulo {
+ font-size: 0.9rem;
+ font-weight: 600;
+ margin-bottom: 4px;
+}
+
+.caixa-materiais-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px 16px;
+ margin-bottom: 6px;
+}
+
+.caixa-mat-col {
+ display: flex;
+ flex-direction: column;
+ font-size: 0.85rem;
+}
+
+.caixa-mat-col span {
+ margin-bottom: 2px;
+}
+
+.caixa-mat-col select,
+.caixa-mat-col input[type="number"] {
+ padding: 4px 6px;
+ border-radius: 4px;
+ border: 1px solid #b5b5b5;
+ background-color: #f9f9f9;
+ color: var(--cor-preto); 
+}
+
+.caixa-add-material {
+ margin-top: 4px;
+ border: none;
+ background: none;
+ color: var(--cor-destaque);
+ font-size: 0.85rem;
+ cursor: pointer;
+ text-decoration: underline;
+}
+
+/* coluna da direita: select de quantidade */
+.caixa-servico-direita {
+ display: flex;
+ align-items: center;
+ justify-content: flex-end;
+}
+
+.caixa-servico-direita select {
+ padding: 4px 6px;
+ border-radius: 4px;
+ border: 1px solid #b5b5b5;
+ background-color: #f7f7f7;
+ color: var(--cor-preto); 
+}
+
+/* CARD de pagamento */
+.caixa-pagamento-card {
+ background-color: var(--cor-primaria);
+ border-radius: 10px;
+ padding: 14px 16px 18px;
+ color: var(--cor-texto-claro);
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+
+.caixa-pagamento-title {
+ font-size: 1rem;
+ font-weight: 600;
+ margin-bottom: 4px;
+}
+
+.caixa-radio-group {
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+}
+
+.caixa-radio-option {
+ display: flex;
+ align-items: center;
+ gap: 6px;
+}
+
+.caixa-radio-option input[type="radio"] {
+     width: 16px;
+ height: 16px;
+}
+
+.caixa-metodo-pagamento {
+ margin-top: 8px;
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+}
+
+.caixa-metodo-pagamento select {
+ padding: 4px 6px;
+ border-radius: 4px;
+ border: 1px solid #b5b5b5;
+ background-color: #f7f7f7;
+ color: var(--cor-preto);
+}
+
+.caixa-info-prazo {
+ font-size: 0.85rem;
+ margin-top: 4px;
+}
+
+/* botões inferiores */
+.caixa-botoes {
+ display: flex;
+ justify-content: flex-end;
+ gap: 12px;
+ margin-top: 22px;
+}
+
+.btn-realizar-venda {
+ padding: 10px 20px;
+ border-radius: 8px;
+ border: none;
+ background-color: var(--cor-destaque);
+ /* MODIFICADO: Antes estava var(--cor-texto-claro) */
+ color: var(--cor-texto-escuro); 
+ font-weight: 600;
+ cursor: pointer;
+}
+
+.btn-realizar-venda:disabled {
+ opacity: 0.7;
+ cursor: default;
+}
+
+.btn-voltar {
+ padding: 9px 18px;
+ border-radius: 8px;
+ border: none;
+ background-color: #333333;
+ /* MODIFICADO: Antes estava var(--cor-texto-escuro) */
+ color: var(--cor-texto-claro); 
+ font-weight: 500;
+ cursor: pointer;
+}
+
+/* ... (resto do arquivo todo igual) ... */
+
+/* texto dos materiais sempre escuro, em qualquer resolução */
+.caixa-materiais-bloco,
+.caixa-materiais-bloco * {
+  color: var(--cor-texto-escuro);
+}
+
+/* responsivo simples */
+@media (max-width: 960px) {
+  .caixa-container {
+    width: 94%;
+    padding: 20px;
+  }
+
+  .caixa-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .caixa-servico-linha {
+    grid-template-columns: 1fr;
+  }
+
+  .caixa-servico-direita {
+    justify-content: flex-start;
+  }
+
+  .caixa-botoes {
+    justify-content: center;
+  }
+}

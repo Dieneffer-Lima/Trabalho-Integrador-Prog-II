@@ -1,0 +1,92 @@
+/* Paleta usada em todas as telas */
+:root {
+    --cor-preto: #0A100D;
+    --cor-sidebar: #B9BAA3;
+    --cor-fundo-principal: #D6D5C9;
+    --cor-primaria: #A22C29;
+    --cor-destaque: #902923;
+    --cor-texto-escuro: #0A100D;
+    --cor-texto-claro: #FFFFFF;
+}
+
+.estoque-page {
+    min-height: 100vh;
+    background-color: var(--cor-fundo-principal);
+    padding: 20px 40px;
+}
+
+/* Cabeçalho no mesmo estilo da Tela Inicial */
+.estoque-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--cor-sidebar);
+    border-radius: 6px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.estoque-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--cor-texto-escuro);
+    margin-right: auto;
+}
+
+/* Botões */
+.estoque-voltar,
+.estoque-sair,
+.botao-adicionar {
+    background-color: var(--cor-primaria);
+    border: none;
+    padding: 10px 20px;
+    color: var(--cor-texto-claro);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.estoque-voltar:hover,
+.estoque-sair:hover,
+.botao-adicionar:hover {
+    background-color: var(--cor-destaque);
+}
+
+/* Container do botão Adicionar Produto */
+.estoque-actions {
+    margin-bottom: 20px;
+}
+
+/* Tabela */
+.estoque-table-container {
+    background-color: var(--cor-sidebar);
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+.estoque-tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.estoque-tabela th {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    padding: 10px;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.estoque-tabela td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    color: var(--cor-texto-escuro);
+    font-size: 0.95rem;
+}
+
+.estoque-tabela tr:last-child td {
+    border-bottom: none;
+}

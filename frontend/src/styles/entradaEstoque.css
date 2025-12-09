@@ -1,0 +1,134 @@
+/* frontend/src/styles/entradaEstoque.css (NOVO ARQUIVO) */
+
+/* Herda as variáveis de cor e fonte do escopo global */
+:root {
+    --cor-primaria: #A22C29; 
+    --cor-destaque: #902923; 
+    --cor-secundaria: #B9BAA3; 
+    --cor-fundo: #D6D5C9; 
+    --cor-texto-escuro: #0A100D; 
+    --cor-texto-claro: #FFFFFF; 
+}
+
+/* Garante que o fundo da página não seja o vermelho default do app */
+body {
+    background-color: var(--cor-fundo) !important; 
+}
+
+.entrada-estoque-page {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background-color: var(--cor-fundo); 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha no topo */
+}
+
+.main-content-entrada {
+    width: 90%;
+    max-width: 600px; /* Tornando o container menor */
+    margin: 30px auto;
+    padding: 30px;
+    background-color: var(--cor-secundaria); 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.entrada-header {
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-claro);
+    padding: 15px;
+    border-radius: 4px;
+    margin: -30px -30px 30px -30px; /* Extende o header */
+    text-align: center;
+}
+
+.entrada-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700; 
+}
+
+.entrada-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--cor-texto-escuro);
+}
+
+.form-group select,
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background-color: var(--cor-fundo); /* Fundo claro para o input */
+}
+
+.form-actions {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.adicionar-button {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.adicionar-button:hover {
+    background-color: var(--cor-destaque);
+}
+
+/* Mensagens de feedback */
+.mensagem {
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.mensagem.success {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724; /* Verde escuro */
+    border: 1px solid #c3e6cb;
+}
+
+.mensagem.error {
+    background-color: #f8d7da; /* Vermelho claro */
+    color: #721c24; /* Vermelho escuro */
+    border: 1px solid #f5c6cb;
+}
+
+/* Botão de voltar (reaproveitado da tela de estoque) */
+.voltar-button {
+    margin-bottom: 20px;
+    padding: 8px 15px;
+    background-color: var(--cor-fundo); 
+    color: var(--cor-texto-escuro);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.voltar-button:hover {
+    background-color: #cac9bc;
+}
