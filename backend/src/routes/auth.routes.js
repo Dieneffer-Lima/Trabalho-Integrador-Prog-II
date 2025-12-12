@@ -1,4 +1,4 @@
-// backend/src/routes/auth.routes.js (Você deve criar ou modificar este arquivo)
+// backend/src/routes/auth.routes.js 
 import { Router } from 'express';
 import AuthController from '../controllers/AuthController.js';
 

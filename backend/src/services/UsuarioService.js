@@ -1,53 +1,60 @@
-// backend/src/services/UsuarioService.js
+// backend/services/ServicoService.js
+import Servico from "../models/Servico.js";
 
-import bcrypt from 'bcryptjs';
-import Usuario from '../models/Usuario.js'; // Importa o modelo criado acima
+const ServicoService = {
+  //SELECT * FROM servico ORDER BY nome_servico ASC;
+  async listarTodos() {
+    return Servico.findAll({
+      order: [["nome_servico", "ASC"]],
+    });
+  },
 
-class UsuarioService {
+  async buscarPorId(id) {
+    //SELECT * FROM servico WHERE id_servico = :id;
+    return Servico.findByPk(id);
+  },
 
-    // Função para encontrar um usuário pelo ID
-    async buscarPorId(id_usuario) {
-        return Usuario.findByPk(id_usuario);
+  async criar(dados) {
+    //INSERT INTO servico (nome_servico, valor_servico) VALUES (:nome_servico, :valor_servico);
+    const { nome_servico, valor_servico } = dados;
+
+    if (!nome_servico || valor_servico == null) {
+      const error = new Error("Nome e valor do serviço são obrigatórios.");
+      error.statusCode = 400;
+      throw error;
     }
 
-    // Função para encontrar um usuário pelo Email (usada no login)
-    async buscarPorEmail(email) {
-        return Usuario.findOne({ where: { email } });
+    const novo = await Servico.create({
+      nome_servico,
+      valor_servico,
+    });
+
+    return novo;
+  },
+
+  async atualizar(id, dados) {
+    //SELECT * FROM servico WHERE id_servico = :id; UPDATE servico SET nome_servico = ..., valor_servico = ... WHERE id_servico = :id;
+    const servico = await Servico.findByPk(id);
+    if (!servico) {
+      return null;
     }
 
-    // Função para criar um novo usuário (usada no cadastro - RF01)
-    async criar({ nome_completo, email, senha, tipo_usuario }) {
-        
-        // 1. Verifica se o usuário já existe
-        const usuarioExistente = await this.buscarPorEmail(email);
-        if (usuarioExistente) {
-            // Lança um erro que será capturado pelo AuthController
-            const error = new Error("O e-mail informado já está em uso.");
-            error.name = 'SequelizeUniqueConstraintError'; // Simula o erro do Sequelize
-            throw error;
-        }
+    const { nome_servico, valor_servico } = dados;
 
-        // 2. HASH da senha
-        const salt = await bcrypt.genSalt(10);
-        const senhaHash = await bcrypt.hash(senha, salt);
-        
-        // 3. Cria o usuário no banco de dados com a senha hasheada
-        const novoUsuario = await Usuario.create({
-            nome_completo,
-            email,
-            senha: senhaHash,
-            tipo_usuario
-        });
+    if (nome_servico !== undefined) servico.nome_servico = nome_servico;
+    if (valor_servico !== undefined) servico.valor_servico = valor_servico;
 
-        // 4. Retorna um objeto limpo (sem a senha hasheada)
-        const { senha: _, ...usuarioSemSenha } = novoUsuario.toJSON();
-        return usuarioSemSenha;
-    }
+    await servico.save();
+    return servico;
+  },
 
-    // Função para comparar a senha (usada no login)
-    async compararSenha(senhaEnviada, senhaHash) {
-        return bcrypt.compare(senhaEnviada, senhaHash);
-    }
-}
+  async deletar(id) {
+    //DELETE FROM servico WHERE id_servico = :id;
+    const linhasAfetadas = await Servico.destroy({
+      where: { id_servico: id },
+    });
+    return linhasAfetadas > 0;
+  },
+};
 
-export default new UsuarioService();
+export default ServicoService;

@@ -1,208 +1,145 @@
-// frontend/src/pages/CadastroNotaFiscal.jsx
+// frontend/src/pages/Cadastro.jsx
+import { useState } from "react";
+import axios from "axios";
+import "../styles/login.css";
+import logo from "../assets/logo.png"; // 👈 igual no Login
 
-import React, { useEffect, useState } from "react";
-import "../styles/notasFiscais.css";
-import api from "../api";
 
-function CadastroNotaFiscal({ irParaInicial, vendaId }) {
-  const [idVenda, setIdVenda] = useState(vendaId || null);
-  const [numeroNota, setNumeroNota] = useState("");
-  const [dataEmissao, setDataEmissao] = useState("");
-  const [valorTotal, setValorTotal] = useState("");
-  const [statusPagamento, setStatusPagamento] = useState("pendente");
+const API_URL = "http://localhost:3001/api";
 
-  const [mensagem, setMensagem] = useState(null);
+function Cadastro({ irParaLogin }) {
+  const [nomeCompleto, setNomeCompleto] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [tipoUsuario, setTipoUsuario] = useState("ADMIN"); // ADMIN | OPERADOR
   const [carregando, setCarregando] = useState(false);
-
-  // Ao montar, tenta recuperar venda do localStorage se prop não vier
-  useEffect(() => {
-    if (!idVenda) {
-      try {
-        const ultimaVendaJSON = localStorage.getItem("ultimaVenda");
-        if (ultimaVendaJSON) {
-          const ultimaVenda = JSON.parse(ultimaVendaJSON);
-          if (ultimaVenda && ultimaVenda.id_venda) {
-            setIdVenda(ultimaVenda.id_venda);
-            if (ultimaVenda.total_venda) {
-              setValorTotal(String(ultimaVenda.total_venda).replace(".", ","));
-            }
-          }
-        }
-      } catch (e) {
-        console.error("Erro ao ler ultimaVenda do localStorage:", e);
-      }
-    }
-  }, [idVenda]);
+  const [mensagem, setMensagem] = useState("");
+  const [tipoMensagem, setTipoMensagem] = useState("success");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMensagem(null);
-
-    if (!idVenda) {
-      setMensagem({
-        tipo: "erro",
-        texto:
-          "ID da venda não encontrado. Volte ao caixa, finalize uma venda a prazo e tente novamente.",
-      });
-      return;
-    }
-
-    if (!numeroNota || !valorTotal) {
-      setMensagem({
-        tipo: "erro",
-        texto: "Preencha, no mínimo, Número da Nota e Valor Total.",
-      });
-      return;
-    }
-
+    setMensagem("");
+    setTipoMensagem("success");
     setCarregando(true);
 
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setCarregando(false);
-        setMensagem({
-          tipo: "erro",
-          texto: "Sessão expirada. Faça login novamente.",
-        });
+      // aqui você pode apontar para a rota real de cadastro
+      // Exemplo: /auth/register ou /usuarios
+      const resp = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome_completo: nomeCompleto,
+          email,
+          senha,
+          tipo_usuario: tipoUsuario,
+        }),
+      });
+
+      if (!resp.ok) {
+        setTipoMensagem("error");
+        setMensagem("Não foi possível realizar o cadastro.");
         return;
       }
 
-      const payload = {
-        id_venda: idVenda,
-        numero_nota: numeroNota,
-        data_emissao: dataEmissao || null,
-        valor_total: parseFloat(valorTotal.replace(",", ".")),
-        status_pagamento: statusPagamento, // 'pendente' ou 'pago'
-      };
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      const resp = await api.post("/notas-fiscais", payload, config);
-      console.log("Nota fiscal criada:", resp.data);
-
-      setMensagem({
-        tipo: "sucesso",
-        texto: "Nota fiscal cadastrada com sucesso!",
-      });
-
-      setNumeroNota("");
-      setDataEmissao("");
-      setValorTotal("");
-      setStatusPagamento("pendente");
+      setTipoMensagem("success");
+      setMensagem("Cadastro realizado com sucesso!");
+      // se quiser, limpa o formulário
+      setNomeCompleto("");
+      setEmail("");
+      setSenha("");
+      setTipoUsuario("ADMIN");
     } catch (err) {
-      console.error("Erro ao cadastrar nota:", err.response || err);
-      setMensagem({
-        tipo: "erro",
-        texto:
-          err.response?.data?.message ||
-          "Erro ao cadastrar nota fiscal. Verifique o backend (/notas-fiscais).",
-      });
+      console.error(err);
+      setTipoMensagem("error");
+      setMensagem("Erro ao conectar com o servidor.");
     } finally {
       setCarregando(false);
     }
   };
 
   return (
-    <div className="nota-page">
-      <main className="nota-container">
-        <header className="nota-header">
-          <h1 className="nota-title">Cadastro de Nota Fiscal</h1>
-        </header>
+    <div className="login-page">
+      <div className="login-card">
+        <div className="login-logo-container">
+          <img
+            src={logo}
+            alt="Logo Borracharia Pereira Lima"
+            className="login-logo"
+          />
+        </div>
 
-        {mensagem && (
-          <div className={`nota-mensagem ${mensagem.tipo}`}>
-            {mensagem.texto}
-          </div>
-        )}
+        <h1 className="login-title">Cadastro</h1>
 
-        <form className="nota-form" onSubmit={handleSubmit}>
-          <div className="nota-row">
-            <label className="nota-label">
-              ID da Venda:
-              <input
-                type="text"
-                className="nota-input"
-                value={idVenda || ""}
-                readOnly
-              />
-            </label>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label className="login-label">
+            Nome completo:
+            <input
+              type="text"
+              className="login-input"
+              value={nomeCompleto}
+              onChange={(e) => setNomeCompleto(e.target.value)}
+              required
+            />
+          </label>
 
-            <label className="nota-label">
-              Número da Nota:
-              <input
-                type="text"
-                className="nota-input"
-                value={numeroNota}
-                onChange={(e) => setNumeroNota(e.target.value)}
-                required
-              />
-            </label>
-          </div>
+          <label className="login-label">
+            Email:
+            <input
+              type="email"
+              className="login-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
 
-          <div className="nota-row">
-            <label className="nota-label">
-              Data de Emissão:
-              <input
-                type="date"
-                className="nota-input"
-                value={dataEmissao}
-                onChange={(e) => setDataEmissao(e.target.value)}
-              />
-            </label>
+          <label className="login-label">
+            Senha:
+            <input
+              type="password"
+              className="login-input"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+            />
+          </label>
 
-            <label className="nota-label">
-              Valor Total (R$):
-              <input
-                type="text"
-                className="nota-input"
-                placeholder="0,00"
-                value={valorTotal}
-                onChange={(e) => setValorTotal(e.target.value)}
-                required
-              />
-            </label>
-          </div>
-
-          <div className="nota-row">
-            <label className="nota-label">
-              Status do Pagamento:
-              <select
-                className="nota-input"
-                value={statusPagamento}
-                onChange={(e) => setStatusPagamento(e.target.value)}
-              >
-                <option value="pendente">Pendente</option>
-                <option value="pago">Pago</option>
-              </select>
-            </label>
-          </div>
-
-          <div className="nota-botoes">
-            <button
-              type="submit"
-              className="nota-salvar"
-              disabled={carregando}
+          <label className="login-label">
+            Tipo de usuário:
+            <select
+              className="login-input"
+              value={tipoUsuario}
+              onChange={(e) => setTipoUsuario(e.target.value)}
             >
-              {carregando ? "Salvando..." : "Salvar Nota"}
-            </button>
+              <option value="ADMIN">Administrador</option>
+              <option value="OPERADOR">Operador de Caixa</option>
+            </select>
+          </label>
 
-            <button
-              type="button"
-              className="nota-voltar"
-              onClick={irParaInicial}
-            >
-              Voltar à Tela Inicial
-            </button>
-          </div>
+          {mensagem && (
+            <p className={`login-message ${tipoMensagem}`}>{mensagem}</p>
+          )}
+
+          <button
+            type="submit"
+            className="login-button"
+            disabled={carregando}
+          >
+            {carregando ? "Cadastrando..." : "Cadastrar"}
+          </button>
         </form>
-      </main>
+
+        <button
+          type="button"
+          className="login-secondary-button"
+          onClick={irParaLogin}
+        >
+          Voltar para o Login
+        </button>
+      </div>
     </div>
   );
 }
 
-export default CadastroNotaFiscal;
+export default Cadastro;

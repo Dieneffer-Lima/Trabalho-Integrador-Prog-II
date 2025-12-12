@@ -1,67 +1,73 @@
-// frontend/src/pages/CadastroDespesas.jsx
-
-import React, { useEffect, useState } from "react";
-import "../styles/cadastroDespesas.css";
-import api from "../api";
+import React, { useEffect, useState } from "react"; // Hooks: estado e efeito de carregamento inicial
+import "../styles/cadastroDespesas.css"; // CSS da página
+import api from "../api"; // axios configurado (baseURL, interceptors, etc, se houver)
 
 function CadastroDespesas({ irParaInicial }) {
+  // Campos do formulário
   const [categoria, setCategoria] = useState("");
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState("");
   const [dataDespesa, setDataDespesa] = useState("");
 
-  const [mensagem, setMensagem] = useState(null);
+  // Controle de UI
+  const [mensagem, setMensagem] = useState(null); // { tipo, texto }
   const [carregando, setCarregando] = useState(false);
+
+  // Lista exibida na tabela
   const [despesas, setDespesas] = useState([]);
 
-  // Carrega despesas existentes
+  // Ao abrir a tela, busca despesas existentes no backend
   useEffect(() => {
     const carregarDespesas = async () => {
       try {
+        // GET /despesas para trazer dados do banco
         const resp = await api.get("/despesas");
+
+        // Normaliza os dados para o formato usado na tabela
         const lista = resp.data.map((item) => ({
           id: item.id_despesa,
           categoria: item.categoria,
           descricao: item.descricao_despesa,
-          valor: Number(item.valor_despesa), // 🔹 garante número
+          valor: Number(item.valor_despesa),
           data: item.data_despesa,
         }));
+
         setDespesas(lista);
       } catch (err) {
         console.error("Erro ao carregar despesas:", err);
-        setMensagem({
-          tipo: "erro",
-          texto: "Erro ao carregar despesas.",
-        });
+        setMensagem({ tipo: "erro", texto: "Erro ao carregar despesas." });
       }
     };
 
     carregarDespesas();
   }, []);
 
+  // Envia o formulário para cadastrar uma nova despesa
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMensagem(null);
 
+    // Validação mínima
     if (!categoria || !valor) {
-      setMensagem({
-        tipo: "erro",
-        texto: "Preencha ao menos Categoria e Valor.",
-      });
+      setMensagem({ tipo: "erro", texto: "Preencha ao menos Categoria e Valor." });
       return;
     }
 
     setCarregando(true);
 
     try {
+      // Monta payload conforme o backend espera
       const payload = {
         categoria,
         descricao_despesa: descricao || null,
         valor_despesa: parseFloat(valor.replace(",", ".")),
-        data_despesa: dataDespesa || null, // se vazio, backend pode assumir data atual
+        data_despesa: dataDespesa || null,
       };
 
+      // POST /despesas para salvar no banco
       const resp = await api.post("/despesas", payload);
+
+      // Objeto retornado do backend (despesa criada)
       const nova = resp.data;
 
       setMensagem({
@@ -69,13 +75,13 @@ function CadastroDespesas({ irParaInicial }) {
         texto: `Despesa "${categoria}" cadastrada com sucesso!`,
       });
 
-      // limpa inputs
+      // Limpa o formulário
       setCategoria("");
       setDescricao("");
       setValor("");
       setDataDespesa("");
 
-      // adiciona na tabela já no formato esperado
+      // Normaliza e adiciona a nova despesa na tabela sem precisar refazer o GET
       const despesaNormalizada = {
         id: nova.id_despesa,
         categoria: nova.categoria,
@@ -98,9 +104,9 @@ function CadastroDespesas({ irParaInicial }) {
     }
   };
 
+  // Função utilitária para mostrar data em formato DD/MM/AAAA
   const formatarData = (dataStr) => {
     if (!dataStr) return "";
-    // espera YYYY-MM-DD
     const [ano, mes, dia] = dataStr.split("-");
     if (!dia) return dataStr;
     return `${dia}/${mes}/${ano}`;
@@ -113,10 +119,10 @@ function CadastroDespesas({ irParaInicial }) {
           <h1 className="despesas-title">Cadastro de Despesas</h1>
         </header>
 
-        {mensagem && (
-          <div className={`mensagem ${mensagem.tipo}`}>{mensagem.texto}</div>
-        )}
+        {/* Mensagem de erro/sucesso */}
+        {mensagem && <div className={`mensagem ${mensagem.tipo}`}>{mensagem.texto}</div>}
 
+        {/* Formulário de cadastro */}
         <form className="despesas-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <label className="despesas-label">
@@ -124,7 +130,7 @@ function CadastroDespesas({ irParaInicial }) {
               <input
                 type="text"
                 className="despesas-input"
-                placeholder="Ex.: Salário, Água, Luz, Internet, Materiais..."
+                placeholder="Ex.: Salário, Água, Luz, Internet..."
                 value={categoria}
                 onChange={(e) => setCategoria(e.target.value)}
                 required
@@ -167,15 +173,12 @@ function CadastroDespesas({ irParaInicial }) {
           </div>
 
           <div className="salvar-container">
-            <button
-              type="submit"
-              className="salvar-button"
-              disabled={carregando}
-            >
+            <button type="submit" className="salvar-button" disabled={carregando}>
               {carregando ? "Salvando..." : "Salvar"}
             </button>
           </div>
 
+          {/* Tabela de despesas */}
           <div className="tabela-container">
             <table className="despesas-tabela">
               <thead>
@@ -199,9 +202,7 @@ function CadastroDespesas({ irParaInicial }) {
                       <td>{d.descricao}</td>
                       <td>
                         R$
-                        {Number(d.valor)
-                          .toFixed(2)
-                          .replace(".", ",")}
+                        {Number(d.valor).toFixed(2).replace(".", ",")}
                       </td>
                     </tr>
                   ))
@@ -211,6 +212,7 @@ function CadastroDespesas({ irParaInicial }) {
           </div>
         </form>
 
+        {/* Volta para a tela inicial */}
         <button className="voltar-button" onClick={irParaInicial}>
           Voltar
         </button>

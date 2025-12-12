@@ -11,9 +11,7 @@ import ItemVenda from "./ItemVenda.js";
 import Permissao from "./Permissao.js";
 import UsuarioPermissao from "./UsuarioPermissao.js";
 
-/* ============================
-   RELACIONAMENTOS DO SISTEMA
-   ============================ */
+/* RELACIONAMENTOS DO SISTEMA*/
 
 // Usuario 1:N Venda
 Usuario.hasMany(Venda, { foreignKey: "id_usuario" });
